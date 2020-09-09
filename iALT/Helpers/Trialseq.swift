@@ -24,6 +24,58 @@ class Trialseq {
     
     private func buildSequence() -> [[Double]] {
         
+        var seq: [[Double]]
+        if data.training == "0" {
+            seq = self.fullExperimentSequence()
+        } else {
+            seq = self.trainingSequence()
+        }
+        
+        /// Assign trial numbers to each trial
+        for trialnum in 0...(seq.count - 1) {
+            seq[(trialnum, columns.trialnum)] = Double(trialnum) + 1.0
+            seq[(trialnum, columns.deadline)] = settings.durations.deadline
+        }
+        
+        return seq
+    }
+    
+    private func trainingSequence() -> [[Double]] {
+        var sequence = [[Double]]()
+        
+        for blocknum in 1...settings.general.blocks {
+            
+            // First get the number of each type of trial
+            let go_standard = Int(settings.general.trials * (1 - settings.general.nogo))
+            let nogo_standard = Int(settings.general.trials * settings.general.nogo)
+            
+            /// Standard go trials
+            let go_stan_side1 = Matlab.fill(matrix: Matlab.zeros(rows: go_standard / 2, columns: columns.total_columns), column: columns.side, with: 1)
+            let go_stan_side2 = Matlab.fill(matrix: Matlab.zeros(rows: go_standard / 2, columns: columns.total_columns), column: columns.side, with: 2)
+            let go_stan = Matlab.fill(matrix: Matlab.merge([go_stan_side1, go_stan_side2]), column: columns.go, with: 1)
+            
+            /// Standard nogo trials
+            let nogo_stan_side1 = Matlab.fill(matrix: Matlab.zeros(rows: nogo_standard / 2, columns: columns.total_columns), column: columns.side, with: 1)
+            let nogo_stan_side2 = Matlab.fill(matrix: Matlab.zeros(rows: nogo_standard / 2, columns: columns.total_columns), column: columns.side, with: 2)
+            let nogo_stan = Matlab.merge([nogo_stan_side1, nogo_stan_side2])
+            
+            var block = Matlab.merge([ go_stan, nogo_stan ]).shuffled()
+            
+            // Fill with block number
+            block = Matlab.fill(matrix: block, column: columns.block, with: Double(blocknum))
+            
+            // Merge with master sequence
+            if sequence.count == 0 {
+                sequence = block // assign directly if we don't have dimensions on sequence yet
+            } else {
+                sequence = Matlab.merge([ sequence, block ]) // merge with previous sequence
+            }
+        }
+        
+        return sequence
+    }
+    
+    private func fullExperimentSequence() -> [[Double]] {
         var sequence = [[Double]]()
         
         for blocknum in 1...settings.general.blocks {
@@ -59,9 +111,7 @@ class Trialseq {
             var block = Matlab.merge([ go_stan, nogo_stan, go_nov, nogo_nov ]).shuffled()
             
             // Shuffle
-            if data.training == "0" {
-                block = shuffleForFullExperiment(matrix: block)
-            }
+            block = shuffleForFullExperiment(matrix: block)
             
             // Fill with block number
             block = Matlab.fill(matrix: block, column: columns.block, with: Double(blocknum))
@@ -70,18 +120,9 @@ class Trialseq {
             if sequence.count == 0 {
                 sequence = block // assign directly if we don't have dimensions on sequence yet
             } else {
-
                 sequence = Matlab.merge([ sequence, block ]) // merge with previous sequence
             }
-            
         }
-        
-        /// Assign trial numbers to each trial
-        for trialnum in 0...(sequence.count - 1) {
-            sequence[(trialnum, columns.trialnum)] = Double(trialnum) + 1.0
-            sequence[(trialnum, columns.deadline)] = settings.durations.deadline
-        }
-        
         return sequence
     }
     
@@ -131,6 +172,9 @@ class Trialseq {
         if column < 0 || column > self.seq[0].count { return }
         var _end = end
         if _end > self.seq.count - 1 { _end = self.seq.count - 1 }
+        
+        // If we're exceeding the index range, return
+        if row > _end { return }
         
         for i in row..._end {
             self.seq[(i, column)] = value

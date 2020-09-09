@@ -14,7 +14,7 @@ class ParticipantData: Codable {
     let gender: String
     let handedness: String
     let buttons: String
-    let training: String
+    var training: String
     
     init(data: [String: String]) {
         

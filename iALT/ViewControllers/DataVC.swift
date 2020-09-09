@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class DataVC: UIViewController {
     
@@ -33,8 +34,7 @@ class DataVC: UIViewController {
     private lazy var genderField: TextField = self.createTextField(placeholder: "Gender?")
     private lazy var handednessField: TextField = self.createTextField(placeholder: "Left or Right Handed?")
     
-    private lazy var startExpButton: UIButton = self.createButton(text: "Full Experiment", bgColor: .systemGreen)
-    private lazy var startTrainingButton: UIButton = self.createButton(text: "Training", bgColor: .systemRed)
+    private lazy var saveButton: UIButton = self.createButton(text: "Save", bgColor: .systemGreen)
     
     private lazy var stack: UIStackView = {
        
@@ -43,8 +43,7 @@ class DataVC: UIViewController {
             self.ageField,
             self.genderField,
             self.handednessField,
-            self.startExpButton,
-            self.startTrainingButton
+            self.saveButton
         ])
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -57,7 +56,7 @@ class DataVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         
         addTargets()
         setupLayout()
@@ -65,8 +64,7 @@ class DataVC: UIViewController {
     }
     
     private func addTargets() {
-        startExpButton.addTarget(self, action: #selector(startExperiment), for: .touchUpInside)
-        startTrainingButton.addTarget(self, action: #selector(startTraining), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(self.createParticipant), for: .touchUpInside)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(gesture)
     }
@@ -76,19 +74,8 @@ class DataVC: UIViewController {
     }
     
     private func constraints() {
-        
         stack.anchor(top: nil, left: view.leadingAnchor, right: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
         stack.center()
-        
-    }
-    
-    private func presentTask(data: ParticipantData) {
-        let settings = Settings(data: data)
-        let columns = Columns()
-        let trialseq = Trialseq(settings: settings, columns: columns, data: data)
-        let taskVC = TaskVC(data: ParticipantData(), settings: settings, columns: columns, trialseq: trialseq)
-        taskVC.modalPresentationStyle = .fullScreen
-        self.present(taskVC, animated: true)
     }
     
     private func markAsInvalid(textField: TextField) {
@@ -134,54 +121,46 @@ class DataVC: UIViewController {
         return flag
     }
     
-    @objc private func startExperiment() {
-        print("Starting experiment")
+    @objc private func createParticipant() {
         guard isDataValid() else { return }
-        let data = collectData(training: 0)
+        ProgressHUD.animationType = .circleStrokeSpin
+        ProgressHUD.colorAnimation = .systemBlue
+        ProgressHUD.show("Saving")
+        let data = collectData()
         NetworkManager.shared.createParticipant(data: data) { (res) in
             switch res {
                 case .success(let data):
-                    print("Success!")
                     print(data)
-                    NetworkManager.shared.updateParticipant(participant: data, sequence: [[4, 4, 2], [9, 9, 8]]) { (res) in
-                        switch res {
-                            case .success(let p):
-                                print("Another success!")
-                                print(p)
-                            case .failure(let err):
-                                print("Another error :(")
-                                print(err.localizedDescription)
-                        }
-                }
+                    DispatchQueue.main.async {
+                        self.nameField.text = ""
+                        self.ageField.text = ""
+                        self.genderField.text = ""
+                        self.handednessField.text = ""
+                        self.nameField.layer.borderColor = UIColor.lightGray.cgColor
+                        self.ageField.layer.borderColor = UIColor.lightGray.cgColor
+                        self.genderField.layer.borderColor = UIColor.lightGray.cgColor
+                        self.handednessField.layer.borderColor = UIColor.lightGray.cgColor
+                    }
+                    ProgressHUD.showSucceed()
                 case .failure(let err):
-                    print("Error!")
-                    print(err)
+                    print("Error")
+                    print(err.localizedDescription)
             }
         }
-//        presentTask(data: data)
-        
-    }
-    
-    @objc private func startTraining() {
-        print("Starting training")
-        guard isDataValid() else { return }
-        let data = collectData(training: 1)
-        let p = ParticipantData(data: data)
-        presentTask(data: p)
     }
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    private func collectData(training: Int) -> [String: String] {
+    private func collectData() -> [String: String] {
         
         let data = [
             "name": nameField.text!,
             "age": ageField.text!,
             "gender": genderField.text!,
             "handedness": handednessField.text!,
-            "training": "\(training)",
+            "training": "0",
             "buttons": "0"
         ]
         
@@ -197,8 +176,8 @@ class DataVC: UIViewController {
         text.layer.cornerRadius = 12
         text.textColor = .black
         text.autocorrectionType = .no
-        text.layer.borderWidth = 2
-        text.layer.borderColor = UIColor.clear.cgColor
+        text.layer.borderWidth = 1
+        text.layer.borderColor = UIColor.lightGray.cgColor
         return text
     }
     

@@ -16,11 +16,26 @@ struct Settings {
     
     struct General {
         
-        let blocks: Int = 3 // 8 blocks
-        let trials = 60.0 // per block
-        let nov = 1.0/5.0 // ratio of novelty (haptic trials
-        let nogo = 1.0/3.0 // ratio of nogo trials
-        let buttonMap: [String: String]
+        init(buttonMap: [String: String], training: String) {
+            self.buttonMap = buttonMap
+            if training == "0" {
+                self.blocks = 8 // 8 blocks
+                self.trials = 60.0 // per block
+                self.nov = 1.0/5.0 // ratio of novelty (haptic trials
+                self.nogo = 1.0/3.0 // ratio of nogo trials
+            } else {
+                self.blocks = 1 // 1 blocks
+                self.trials = 24.0 // per block
+                self.nov = 0 // ratio of novelty (haptic trials
+                self.nogo = 1.0/3.0 // ratio of nogo trials
+            }
+        }
+        
+        let blocks: Int // 8 blocks
+        let trials: Double // per block
+        let nov: Double // ratio of novelty (haptic trials
+        let nogo: Double // ratio of nogo trials
+        var buttonMap: [String: String]
         
     }
     
@@ -53,7 +68,7 @@ struct Settings {
             buttonMap = ["go": "M", "nogo": "W"]
         }
         
-        self.general = General(buttonMap: buttonMap)
+        self.general = General(buttonMap: buttonMap, training: data.training)
         self.durations = Durations()
         self.layout = Layout()
         

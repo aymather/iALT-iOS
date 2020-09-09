@@ -20,32 +20,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         
-        let dataVC = DataVC()
-        dataVC.title = "Data"
-        dataVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+//        let tabbar = UITabBarController()
+//        tabbar.viewControllers = [initDataVC(), initParticipantsVC()]
         
-        let tabbar = UITabBarController()
-        tabbar.viewControllers = [initDataVC(), initHomeVC()]
-        
-        window?.rootViewController = tabbar
+        window?.rootViewController = TestVC()
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
     }
     
-    private func initHomeVC() -> UINavigationController {
-        let homeVC = HomeVC()
-        homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
+    private func initParticipantsVC() -> UINavigationController {
         
-        return UINavigationController(rootViewController: homeVC)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        let participantsVC = ParticipantsVC(collectionViewLayout: layout)
+        participantsVC.title = "Participants"
+        participantsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        
+        return UINavigationController(rootViewController: participantsVC)
+        
     }
     
     private func initDataVC() -> UIViewController {
+        
         let dataVC = DataVC()
-        dataVC.title = "Data"
+        dataVC.title = "Create Participant"
         dataVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 0)
         
         return UINavigationController(rootViewController: dataVC)
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

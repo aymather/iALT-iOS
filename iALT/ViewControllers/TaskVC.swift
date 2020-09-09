@@ -173,6 +173,8 @@ extension TaskVC {
             // Block trials loop
             for trial in 0...self.trialseq.seq.count - 1 {
                 
+                print("Trial: \(trial)")
+                
                 let block = Int(self.trialseq.seq[(trial, self.columns.block)])
                 
                 if trial == 0 || self.trialseq.seq[(trial - 1, self.columns.block)] != self.trialseq.seq[(trial, self.columns.block)] {
@@ -229,6 +231,7 @@ extension TaskVC {
                 /// Go into trial loop
                 var hasBeenPresented = false
                 var noveltyPlayed = false
+                self.hasResponded = false // Sometimes when we dispatch our touch responses, they don't update fast enough so we do this just to be sure
                 while isTrue == true {
 
                     /// Present stimulus after fixation duration
@@ -237,6 +240,7 @@ extension TaskVC {
                             let stimDisplayDispatch = DispatchTime.now()
                             stimText.isHidden = false
                             let stimDisplayDispatchFinished = DispatchTime.now()
+                            self.stimDisplayTime = stimDisplayDispatchFinished
                             self.buttons(isEnabled: true)
                             
                             self.time.m[(trial, self.time.stimDisplayDispatch)] = stimDisplayDispatch.uptimeNanoseconds
@@ -340,11 +344,13 @@ extension TaskVC {
                 
                 /// Adjust deadline for next trial | If we get a miss, slow it down, if we get 5 accurates in a row, speed it up
                 if self.trialseq.seq[(trial, self.columns.acc)] == 99 {
-                    let deadline = self.trialseq.seq[(trial, self.columns.deadline)] + self.settings.durations.deadline_adjustment
-                    self.trialseq.fillRows(column: self.columns.deadline, from: (trial + 1), to: self.trialseq.seq.count, with: deadline)
+                    var deadline = self.trialseq.seq[(trial, self.columns.deadline)] + self.settings.durations.deadline_adjustment
+                    if deadline < 0.25 { deadline = 0.25 }
+                    self.trialseq.fillRows(column: self.columns.deadline, from: trial + 1, to: self.trialseq.seq.count, with: deadline)
                 } else if self.trialseq.seq[(trial, self.columns.acc)] == 1 && self.trialseq.isPast3GoTrialsAccurate(trialnum: trial) {
-                    let deadline = self.trialseq.seq[(trial, self.columns.deadline)] - self.settings.durations.deadline_adjustment
-                    self.trialseq.fillRows(column: self.columns.deadline, from: (trial + 1), to: self.trialseq.seq.count, with: deadline)
+                    var deadline = self.trialseq.seq[(trial, self.columns.deadline)] - self.settings.durations.deadline_adjustment
+                    if deadline < 0.25 { deadline = 0.25 }
+                    self.trialseq.fillRows(column: self.columns.deadline, from: trial + 1, to: self.trialseq.seq.count, with: deadline)
                 }
                 
                 /// Fill the rest of the time left with ITI
@@ -372,6 +378,8 @@ extension TaskVC {
                         self.end()
                     }
                 }
+                
+                print(self.trialseq.seq[trial])
                 
                 // Add trial
                 self.trialnum += 1
@@ -429,8 +437,6 @@ extension TaskVC {
     // MARK: - Block Feedback
     private func blockFeedback(blocknum: Int) {
         
-        print("Block feedback")
-        
         DispatchQueue.main.async {
             self.leftResponse.isHidden = true
             self.rightResponse.isHidden = true
@@ -472,24 +478,29 @@ extension TaskVC {
             self.centerText.isHidden = false
         }
         
-        let now = DispatchTime.now()
-        var hasBeenEnabled = false
-        while !self.isBlockFeedbackDone {
-            
-            if !hasBeenEnabled && Double((DispatchTime.now().uptimeNanoseconds - now.uptimeNanoseconds) / 1000000000) >= 3 {
-                DispatchQueue.main.async {
-                    let g = UITapGestureRecognizer(target: self, action: #selector(self.endBlockFeedback))
-                    self.centerText.addGestureRecognizer(g)
-                    g.numberOfTapsRequired = 1
-                    self.centerText.isUserInteractionEnabled = true
-                }
-                hasBeenEnabled = true
+        NetworkManager.shared.updateParticipant(participant: self.data, sequence: self.trialseq.seq) { (res) in
+            switch res {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        let g = UITapGestureRecognizer(target: self, action: #selector(self.endBlockFeedback))
+                        g.numberOfTapsRequired = 1
+                        self.centerText.addGestureRecognizer(g)
+                        self.centerText.isUserInteractionEnabled = true
+                    }
+                case .failure(let err):
+                    print(err.localizedDescription)
             }
-            
         }
+        
+        while !self.isBlockFeedbackDone {}
         
         // Reset center text
         DispatchQueue.main.async {
+            // Take gestures away
+            self.centerText.gestureRecognizers?.removeAll()
+            self.centerText.isUserInteractionEnabled = false
+            
+            // Reset center text
             self.centerText.font = UIFont.systemFont(ofSize: 46, weight: .medium)
             self.centerText.text = "+"
         }
@@ -526,10 +537,10 @@ extension TaskVC {
         self.buttons(isEnabled: false)
         
         // Put in response side
-        self.trialseq.seq[(trialnum, columns.resp)] = 1
+        self.trialseq.seq[(self.trialnum, self.columns.resp)] = 1
         
         // Calculate rt
-        self.trialseq.seq[(trialnum, columns.rt)] = Double((end.uptimeNanoseconds - self.stimDisplayTime.uptimeNanoseconds) / 1000000) // in ms
+        self.trialseq.seq[(self.trialnum, self.columns.rt)] = Double((end.uptimeNanoseconds - self.stimDisplayTime.uptimeNanoseconds) / 1000000) // in ms
         
         // Let the trial loop know that the response has been recorded
         self.hasResponded = true
@@ -542,10 +553,10 @@ extension TaskVC {
         self.buttons(isEnabled: false)
         
         // Put in response side
-        self.trialseq.seq[(trialnum, columns.resp)] = 2
+        self.trialseq.seq[(self.trialnum, self.columns.resp)] = 2
         
         // Calculate rt
-        self.trialseq.seq[(trialnum, columns.rt)] = Double((end.uptimeNanoseconds - self.stimDisplayTime.uptimeNanoseconds) / 1000000) // in ms
+        self.trialseq.seq[(self.trialnum, self.columns.rt)] = Double((end.uptimeNanoseconds - self.stimDisplayTime.uptimeNanoseconds) / 1000000) // in ms
         
         // Let the trial loop know that the response has been recorded
         self.hasResponded = true

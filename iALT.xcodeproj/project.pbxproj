@@ -3,17 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6A0CCE7824DE56D900AA1593 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0CCE7724DE56D900AA1593 /* NetworkManager.swift */; };
 		6A22693024FD5B1F00C71399 /* UpdateParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A22692F24FD5B1F00C71399 /* UpdateParticipant.swift */; };
 		6A22693224FD5C0B00C71399 /* ParticipantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A22693124FD5C0B00C71399 /* ParticipantData.swift */; };
-		6A35630924DBB34E00A71FD4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A35630824DBB34E00A71FD4 /* HomeVC.swift */; };
 		6A3779FA24DCF45600B542AB /* TaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3779F924DCF45600B542AB /* TaskVC.swift */; };
 		6A3779FE24DCF4EC00B542AB /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3779FD24DCF4EC00B542AB /* AutoLayout.swift */; };
 		6A377A0124DCF64300B542AB /* DataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A377A0024DCF64300B542AB /* DataVC.swift */; };
+		6A6F39592505BB940039076D /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F39582505BB940039076D /* TestVC.swift */; };
+		6A7E20AB250062470054160B /* ParticipantsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E20AA250062470054160B /* ParticipantsVC.swift */; };
+		6A7E20AE250063620054160B /* ParticipantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E20AD250063620054160B /* ParticipantsCell.swift */; };
+		6A7E20B0250075530054160B /* ParticipantVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7E20AF250075530054160B /* ParticipantVC.swift */; };
 		6A85648224F9E6DA00637E7A /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A85648124F9E6DA00637E7A /* Time.swift */; };
 		6AA06F6C24D8F67800C6F49A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA06F6B24D8F67800C6F49A /* AppDelegate.swift */; };
 		6AA06F6E24D8F67800C6F49A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA06F6D24D8F67800C6F49A /* SceneDelegate.swift */; };
@@ -28,16 +31,21 @@
 		6ADEBE1924DF9F8E0078149E /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEBE1824DF9F8E0078149E /* Columns.swift */; };
 		6ADEBE1B24DF9FA30078149E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEBE1A24DF9FA30078149E /* Settings.swift */; };
 		6AE14CF424DA3AF200CF0ED6 /* Vibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE14CF324DA3AF200CF0ED6 /* Vibrator.swift */; };
+		F9E7B7E98586347EBC09C5C0 /* Pods_iALT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA34147BB0728B454A215AFD /* Pods_iALT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		065C521C7777E9BCA3739F24 /* Pods-iALT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iALT.release.xcconfig"; path = "Target Support Files/Pods-iALT/Pods-iALT.release.xcconfig"; sourceTree = "<group>"; };
 		6A0CCE7724DE56D900AA1593 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6A22692F24FD5B1F00C71399 /* UpdateParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateParticipant.swift; sourceTree = "<group>"; };
 		6A22693124FD5C0B00C71399 /* ParticipantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantData.swift; sourceTree = "<group>"; };
-		6A35630824DBB34E00A71FD4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		6A3779F924DCF45600B542AB /* TaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskVC.swift; sourceTree = "<group>"; };
 		6A3779FD24DCF4EC00B542AB /* AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
 		6A377A0024DCF64300B542AB /* DataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataVC.swift; sourceTree = "<group>"; };
+		6A6F39582505BB940039076D /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		6A7E20AA250062470054160B /* ParticipantsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsVC.swift; sourceTree = "<group>"; };
+		6A7E20AD250063620054160B /* ParticipantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCell.swift; sourceTree = "<group>"; };
+		6A7E20AF250075530054160B /* ParticipantVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantVC.swift; sourceTree = "<group>"; };
 		6A85648124F9E6DA00637E7A /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		6AA06F6824D8F67800C6F49A /* iALT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iALT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA06F6B24D8F67800C6F49A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +62,8 @@
 		6ADEBE1824DF9F8E0078149E /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		6ADEBE1A24DF9FA30078149E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		6AE14CF324DA3AF200CF0ED6 /* Vibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrator.swift; sourceTree = "<group>"; };
+		CA34147BB0728B454A215AFD /* Pods_iALT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iALT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D019CD95819C2BFBA346249D /* Pods-iALT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iALT.debug.xcconfig"; path = "Target Support Files/Pods-iALT/Pods-iALT.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,12 +71,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9E7B7E98586347EBC09C5C0 /* Pods_iALT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		522A1FFFED8EFC118E9CB455 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA34147BB0728B454A215AFD /* Pods_iALT.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6A0CCE7424DE50C700AA1593 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,8 +99,10 @@
 			isa = PBXGroup;
 			children = (
 				6A3779F924DCF45600B542AB /* TaskVC.swift */,
-				6A35630824DBB34E00A71FD4 /* HomeVC.swift */,
 				6A377A0024DCF64300B542AB /* DataVC.swift */,
+				6A7E20AA250062470054160B /* ParticipantsVC.swift */,
+				6A7E20AF250075530054160B /* ParticipantVC.swift */,
+				6A6F39582505BB940039076D /* TestVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -110,11 +131,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		6A7E20AC2500634A0054160B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A7E20AD250063620054160B /* ParticipantsCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6AA06F5F24D8F67800C6F49A = {
 			isa = PBXGroup;
 			children = (
 				6AA06F6A24D8F67800C6F49A /* iALT */,
 				6AA06F6924D8F67800C6F49A /* Products */,
+				B66578F2CD465C89504A78BD /* Pods */,
+				522A1FFFED8EFC118E9CB455 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +160,7 @@
 		6AA06F6A24D8F67800C6F49A /* iALT */ = {
 			isa = PBXGroup;
 			children = (
+				6A7E20AC2500634A0054160B /* Views */,
 				6A0CCE7424DE50C700AA1593 /* Models */,
 				6A3779FF24DCF52600B542AB /* Helpers */,
 				6A3779FC24DCF4CD00B542AB /* Extensions */,
@@ -144,6 +176,15 @@
 			path = iALT;
 			sourceTree = "<group>";
 		};
+		B66578F2CD465C89504A78BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D019CD95819C2BFBA346249D /* Pods-iALT.debug.xcconfig */,
+				065C521C7777E9BCA3739F24 /* Pods-iALT.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +192,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AA06F7F24D8F67900C6F49A /* Build configuration list for PBXNativeTarget "iALT" */;
 			buildPhases = (
+				3679D65AB84EE0F369DA59E4 /* [CP] Check Pods Manifest.lock */,
 				6AA06F6424D8F67800C6F49A /* Sources */,
 				6AA06F6524D8F67800C6F49A /* Frameworks */,
 				6AA06F6624D8F67800C6F49A /* Resources */,
+				DE72BF1E57C255603EB32CEB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -210,13 +253,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3679D65AB84EE0F369DA59E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iALT-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE72BF1E57C255603EB32CEB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iALT/Pods-iALT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iALT/Pods-iALT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iALT/Pods-iALT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6AA06F6424D8F67800C6F49A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6AA06F6C24D8F67800C6F49A /* AppDelegate.swift in Sources */,
-				6A35630924DBB34E00A71FD4 /* HomeVC.swift in Sources */,
+				6A7E20B0250075530054160B /* ParticipantVC.swift in Sources */,
 				6A377A0124DCF64300B542AB /* DataVC.swift in Sources */,
 				6A3779FE24DCF4EC00B542AB /* AutoLayout.swift in Sources */,
 				6A22693024FD5B1F00C71399 /* UpdateParticipant.swift in Sources */,
@@ -226,8 +311,11 @@
 				6AD32FA324E0DD55003A9CF7 /* Orientation.swift in Sources */,
 				6ADEBE1724DF9F7A0078149E /* Matlab.swift in Sources */,
 				6ADEBE1B24DF9FA30078149E /* Settings.swift in Sources */,
+				6A7E20AE250063620054160B /* ParticipantsCell.swift in Sources */,
 				6AA06F6E24D8F67800C6F49A /* SceneDelegate.swift in Sources */,
+				6A6F39592505BB940039076D /* TestVC.swift in Sources */,
 				6AE14CF424DA3AF200CF0ED6 /* Vibrator.swift in Sources */,
+				6A7E20AB250062470054160B /* ParticipantsVC.swift in Sources */,
 				6A22693224FD5C0B00C71399 /* ParticipantData.swift in Sources */,
 				6ADEBE1524DF9F5F0078149E /* Arrays.swift in Sources */,
 				6ADEBE1924DF9F8E0078149E /* Columns.swift in Sources */,
@@ -366,6 +454,7 @@
 		};
 		6AA06F8024D8F67900C6F49A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D019CD95819C2BFBA346249D /* Pods-iALT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -384,6 +473,7 @@
 		};
 		6AA06F8124D8F67900C6F49A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 065C521C7777E9BCA3739F24 /* Pods-iALT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
