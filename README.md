@@ -1,10 +1,10 @@
 # iALT Installation Guide
 
 # Requirements
-CocoaPods: `sudo gem install cocoapods`
-XCode: Install from app store
-Mac computer
-iPhone
+CocoaPods: `sudo gem install cocoapods` \
+XCode: Install from app store \
+Mac computer \
+iPhone \
 Lightning cable to connect iphone to computer
 
 # Installation
