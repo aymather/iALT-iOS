@@ -4,7 +4,7 @@
 CocoaPods: `sudo gem install cocoapods` \
 XCode: Install from app store \
 Mac computer \
-iPhone \
+iPhone (I don't know how high the version needs to be, but I know the vibration API won't work on an iPhone 7 or earlier) \
 Lightning cable to connect iphone to computer
 
 # Installation
